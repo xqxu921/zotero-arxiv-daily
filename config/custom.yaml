@@ -6,8 +6,8 @@ zotero:
 email:
   sender: ${oc.env:SENDER}
   receiver: ${oc.env:RECEIVER}
-  smtp_server: ${oc.env:SMTP_SERVER}
-  smtp_port: ${oc.env:SMTP_PORT}
+  smtp_server: mail.cstnet.cn
+  smtp_port: 994
   sender_password: ${oc.env:SENDER_PASSWORD}
 
 llm:
