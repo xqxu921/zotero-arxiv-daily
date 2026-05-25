@@ -19,8 +19,15 @@ llm:
 
 source:
   arxiv:
-    category: ["cs.AI","cs.CV","cs.LG","cs.CL"]
+    # 除了计算机科学，补充了定量生物学(Quantitative Methods)和分子网络(Molecular Networks)
+    category: ["cs.AI", "cs.CV", "cs.LG", "cs.CL", "q-bio.QM", "q-bio.MN"]
+  biorxiv:
+    # 启用 biorxiv 必须配置此项
+    category: ["bioinformatics", "cancer biology", "genomics"]
+  medrxiv:
+    # 启用 medrxiv 必须配置此项
+    category: ["oncology", "genetic and genomic medicine"]
 
 executor:
   debug: ${oc.env:DEBUG,null}
-  source: ['arxiv']
+  source: ['arxiv','biorxiv','medrxiv']
