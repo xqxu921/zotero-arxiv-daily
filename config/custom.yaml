@@ -30,4 +30,5 @@ source:
 
 executor:
   debug: ${oc.env:DEBUG,null}
+  max_paper_num: 20
   source: ['arxiv','biorxiv','medrxiv']
