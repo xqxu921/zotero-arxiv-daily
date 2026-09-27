@@ -29,6 +29,8 @@ class BiorxivRetriever(BaseRetriever):
                 else:
                     logger.warning(f"Failed to retrieve papers: {str(e)}. Retry in {delay_time} seconds.")
                     sleep(delay_time)
+        print(response.status_code)
+        print(response.text[:500])
         result = response.json()
         collection = result['collection']
         if len(collection) == 0:
