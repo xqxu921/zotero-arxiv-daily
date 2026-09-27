@@ -22,16 +22,31 @@ class BiorxivRetriever(BaseRetriever):
             try:
                 response = requests.get(api_url)
                 response.raise_for_status()
+                logger.info(
+                    f"bioRxiv status={response.status_code}, "
+                    f"content-type={response.headers.get('content-type')}"
+                )
+    
+                logger.info(
+                    f"bioRxiv response preview: "
+                    f"{getattr(response, 'text', '')[:200]}"
+                )
+    
+                result = response.json()
                 break
             except Exception as e:
                 if i == retry_num - 1:
-                    raise e
-                else:
-                    logger.warning(f"Failed to retrieve papers: {str(e)}. Retry in {delay_time} seconds.")
-                    sleep(delay_time)
-        response = requests.get(api_url)
-        response.raise_for_status()
-        result = response.json()
+                    logger.error(
+                        f"Failed to retrieve bioRxiv papers after {retry_num} attempts: {e}"
+                    )
+                    return []
+
+                logger.warning(
+                    f"Failed to retrieve bioRxiv papers: {e}. "
+                    f"Retry in {delay_time} seconds."
+                )
+                sleep(delay_time)
+        
         collection = result['collection']
         if len(collection) == 0:
             logger.warning(f"No paper found. API Message: {result['messages']}")
